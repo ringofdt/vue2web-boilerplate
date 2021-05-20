@@ -1,42 +1,33 @@
 <template>
   <div class="home">
-    <b-alert show>Alert: This is home</b-alert>
-    <b-alert variant="danger" show v-if="err">{{err}}</b-alert>
-    <pre>{{msg}}</pre>
+    <h1>Home</h1>
+    <b-alert variant="danger" show v-if="ping.err">{{ ping.err }}</b-alert>
+    <b-button variant="info" @click="callPing">ping</b-button>
+    <pre>{{ ping.pong }}</pre>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ApiService from "@/services/api.service";
+
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
-  components: {},
+  metaInfo: {
+    title: "Home",
+  },
   data() {
-    return {
-      msg: "",
-      err: "",
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters("app", ["ping"]),
   },
   methods: {
-    ping() {
-      const self = this;
-      const requestData = {
-        method: "get",
-        url: "/ping",
-      };
-      ApiService.customRequest(requestData)
-        .then((response) => {
-          self.msg = response.data;
-        })
-        .catch((e) => {
-          self.err = e;
-        });
-    },
+    ...mapActions("app", ["callPing"]),
   },
   mounted() {
-    this.ping();
+    this.callPing();
   },
 };
 </script>

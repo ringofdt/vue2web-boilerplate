@@ -15,7 +15,6 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class>
             <b-nav-item to="/home">Home</b-nav-item>
-            <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item to="#!login">Login</b-nav-item>
@@ -30,7 +29,7 @@
 export default {
   props: {
     title: {
-      default: "Title",
+      default: `${process.env.VUE_APP_TITLE}`,
     },
   },
   data() {
